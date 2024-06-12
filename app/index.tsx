@@ -14,6 +14,7 @@ export default function Home() {
             fontWeight: "bold",
             alignSelf: "center",
             fontVariant: ["small-caps"],
+            color: '#84B026'
           },
         ]}
       >
