@@ -1,12 +1,24 @@
-import { Text, View } from 'react-native';
+import { Text, View } from "react-native";
 
-import { styles } from '@/styles/Home/styles';
+import { styles } from "@/styles/Home/styles";
+import LogoScreenIndex from "@/components/LogoScreenIndex/LogoScreenIndex";
 
 export default function Home() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator}/>
+      <LogoScreenIndex />
+      <Text
+        style={[
+          {
+            fontSize: 32,
+            fontWeight: "bold",
+            alignSelf: "center",
+            fontVariant: ["small-caps"],
+          },
+        ]}
+      >
+        REGISTER APP
+      </Text>
     </View>
   );
 }
