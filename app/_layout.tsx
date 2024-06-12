@@ -1,59 +1,55 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import React from "react";
+import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { Tabs } from "expo-router";
 
-import { useColorScheme } from '@/components/useColorScheme';
-
-export {
-  // Catch any errors thrown by the Layout component.
-  ErrorBoundary,
-} from 'expo-router';
-
-export const unstable_settings = {
-  // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: '(tabs)',
-};
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
-  const [loaded, error] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-    ...FontAwesome.font,
-  });
-
-  // Expo Router uses Error Boundaries to catch errors in the navigation tree.
-  useEffect(() => {
-    if (error) throw error;
-  }, [error]);
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
-
-  return <RootLayoutNav />;
-}
-
-function RootLayoutNav() {
-  const colorScheme = useColorScheme();
-
+export default function TabLayout() {
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal' }} />
-      </Stack>
-    </ThemeProvider>
+    <Tabs
+      screenOptions={{
+        tabBarStyle: {
+          backgroundColor: "#173540",
+          borderTopWidth: 0,
+          position: "absolute",
+          bottom: 15,
+          height: 70,
+          width: '90%',
+          alignSelf: 'center',
+          left: 18,
+          right: 15,
+          borderRadius: 20
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: "bold",
+        },
+        tabBarShowLabel: false,
+      }}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({color, focused}) => {
+            if (focused) {
+              return <FontAwesome name="home" size={35} color={'#DAFDBA'} />;
+            }
+            return <FontAwesome name="home" size={35} color={'#9AEBA3'} />;
+          }
+        }}
+      />
+      <Tabs.Screen
+        name="two"
+        options={{
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => {
+            if (focused) {
+              return <FontAwesome name="list-alt" size={35} color={'#DAFDBA'} />;
+            }
+
+            return <FontAwesome name="list-alt" size={35} color={'#9AEBA3'} />;
+          },
+        }}
+      />
+    </Tabs>
   );
 }
